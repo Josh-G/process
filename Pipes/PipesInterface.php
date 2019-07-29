@@ -51,7 +51,7 @@ interface PipesInterface
      *
      * @return bool
      */
-    public function areOpen();
+    public function areOpen($includeWritePipes = true);
 
     /**
      * Returns if pipes are able to read output.

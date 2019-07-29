@@ -169,9 +169,12 @@ class WindowsPipes extends AbstractPipes
     /**
      * {@inheritdoc}
      */
-    public function areOpen()
+    public function areOpen($includeWritePipes = true)
     {
-        return $this->pipes && $this->fileHandles;
+        if ($includeWritePipes) {
+            return $this->pipes && $this->fileHandles;
+        }
+        return isset($this->pipes[1]) || isset($this->pipes[2]) || isset($this->fileHandles[1]) || isset($this->fileHandles[2]);
     }
 
     /**

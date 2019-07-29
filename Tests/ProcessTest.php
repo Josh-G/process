@@ -1562,6 +1562,16 @@ EOTXT;
         $this->assertFalse($process->isRunning());
     }
 
+    public function testInputDoesNotHangWhenNotRead()
+    {
+        $input = str_repeat('x', pow(2, 16) + 1);
+        $process = $this->getProcess('invalid_command', null, null, $input);
+        $process->start();
+        $process->setTimeout(2);
+        $process->wait();
+        $this->assertFalse($process->isRunning());
+    }
+
     /**
      * @param string      $commandline
      * @param string|null $cwd

@@ -146,8 +146,11 @@ class UnixPipes extends AbstractPipes
     /**
      * {@inheritdoc}
      */
-    public function areOpen()
+    public function areOpen($includeWritePipes = true)
     {
-        return (bool) $this->pipes;
+        if ($includeWritePipes) {
+            return (bool) $this->pipes;
+        }
+        return isset($this->pipes[1]) || isset($this->pipes[2]);
     }
 }
